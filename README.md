@@ -1,73 +1,142 @@
-# React + TypeScript + Vite
+# Agentic AI Helpdesk Platform  
+Autonomous Ticket Resolution with Multi-Agent Decision Making
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is an agentic AI-powered helpdesk platform designed to autonomously resolve customer support tickets using a structured multi-agent architecture.
 
-Currently, two official plugins are available:
+Unlike traditional rule-based systems or single-LLM chatbots, this platform decomposes the support workflow into specialized agents that classify, plan, resolve, verify, and escalate tickets. Each agent operates with a clearly defined role and decision boundary, enabling reliable automation, transparency, and measurable performance.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The system prioritizes correctness, cost efficiency, and controlled escalation over generic AI responses.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Core Features
+- Multi-agent orchestration with explicit roles
+- Autonomous ticket classification and prioritization
+- Decision-driven resolution or escalation
+- Tool-augmented problem solving (KB, APIs, scripts)
+- Solution verification before ticket closure
+- Learning from past failures and escalations
+- End-to-end observability with metrics and logs
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## High-Level Architecture
+```
+User Ticket
+↓
+Classifier Agent
+↓
+Planner Agent
+├── Automatic Resolution
+├── Clarification Request
+└── Human Escalation
+↓
+Verification Agent
+↓
+Ticket Closure or Escalation
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Agent Responsibilities
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Classifier Agent
+- Identifies issue domain and category
+- Estimates urgency and complexity
+- Provides structured input to the Planner Agent
+
+### Planner Agent
+- Determines the next action for a ticket:
+  - Resolve automatically
+  - Request additional information
+  - Escalate to a human agent
+- Acts as the central decision-making component
+
+### Resolution Agent
+- Executes the selected resolution strategy
+- Uses external tools such as:
+  - Knowledge base retrieval
+  - API integrations
+  - Automated scripts and workflows
+
+### Verification Agent
+- Validates the proposed solution
+- Checks correctness, completeness, and confidence
+- Prevents premature or incorrect ticket closure
+
+### Escalation Agent
+- Transfers tickets to human agents when:
+  - Confidence is below threshold
+  - Resolution attempts fail
+  - Policy or safety constraints apply
+
+### Learning Agent
+- Analyzes historical failures and escalations
+- Improves future planning decisions
+- Updates internal decision signals and routing logic
+
+---
+
+## Tech Stack
+
+### Backend
+- FastAPI or Node.js
+- Agent orchestration layer
+- Asynchronous task execution
+- Centralized logging and metrics collection
+
+### Frontend
+- React or Next.js
+- Ticket management dashboard
+- Agent decision visualization
+- Resolution confidence indicators
+- Escalation tracking
+
+### Data Layer
+- PostgreSQL
+  - Tickets
+  - Agent decisions
+  - Logs and metrics
+- Vector Database
+  - Semantic memory
+  - Contextual retrieval
+  - Historical resolution data
+
+### Infrastructure
+- Dockerized services
+- Cloud deployment (AWS or GCP)
+- Auto-scaling for traffic spikes
+- Cost and latency monitoring
+
+---
+
+## Ticket Processing Flow
+
+1. User submits a support ticket
+2. Classifier Agent analyzes intent and urgency
+3. Planner Agent selects an action
+4. Resolution Agent attempts solution if applicable
+5. Verification Agent validates the outcome
+6. Ticket is closed or escalated
+7. Learning Agent updates system memory
+
+---
+
+## Metrics and Observability
+The system tracks the following metrics per ticket and in aggregate:
+
+- Ticket resolution rate
+- Human escalation rate
+- Average resolution time
+- Cost per ticket
+- Error recovery success rate
+- Agent confidence versus outcome accuracy
+
+These metrics enable performance analysis, optimization, and system tuning.
+
+---
+
+## Project Status
+Active development.  
+Designed for extensibility, evaluation, and real-world deployment.
