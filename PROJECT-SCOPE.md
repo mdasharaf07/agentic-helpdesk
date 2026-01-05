@@ -1,4 +1,5 @@
-Decide final tech stack:
+### Decide final tech stack:
+
 * Frontend: React / Next.js (pick ONE)
 * Backend: FastAPI (recommended) OR Node
 * Database: PostgreSQL
