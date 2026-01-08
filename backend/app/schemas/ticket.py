@@ -10,7 +10,7 @@ class TicketCreate(BaseModel):
     priority: TicketPriority
 
 class TicketUpdate(BaseModel):
-    status: TicketStatus
+    status: Optional[TicketStatus] = None
     priority: Optional[TicketPriority] = None
 
 class TicketResponse(BaseModel):
